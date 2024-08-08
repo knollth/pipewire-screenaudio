@@ -26,7 +26,7 @@ show_help() {
   echo "Actions:"
   echo "  apply                     Apply to mozilla folder"
   echo "  list                      List destination mozilla folders"
-  echo "  reset                     Delete .mozilla folders, reset changes to firefox flatpak (NOT IMPLEMENTED)"
+  echo "  reset                     Delete .mozilla folders, reset changes to firefox flatpak"
   echo "Options:"
   echo "  -h, --help                Show help"
   echo "  --installed               for listing installed .mozilla folders"
