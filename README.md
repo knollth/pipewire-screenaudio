@@ -12,7 +12,9 @@ This approach also makes it easier to handle special installations of firefox li
 **This only serves as a proof of concept and for now is experimental only**
 
 ## Future Works:
-- Config file for custom .mozilla directories (example for forks like librewolf or floorp)
+- Config file for 
+  - custom .mozilla directories (for forks like librewolf or floorp)
+  - custom locations for connector-rs and native-messaging-hosts source directory for copying
 - rewrite of the CLI tool in rust
 *Support for snaps is not planned* 
 
