@@ -24,11 +24,12 @@ fi
 show_help() {
   echo "Usage: script.sh [action] [options]"
   echo "Actions:"
-  echo "  apply                     Apply changes"
-  echo "  list-destinations         List destinations"
+  echo "  apply                     Apply to mozilla folder"
+  echo "  list                      List destination mozilla folders"
   echo "  reset                     Delete .mozilla folders, reset changes to firefox flatpak (NOT IMPLEMENTED)"
   echo "Options:"
   echo "  -h, --help                Show help"
+  echo "  --installed               for listing installed .mozilla folders"
   echo "  -v, --verbose             Enable verbose mode"
 }
 
@@ -154,7 +155,7 @@ reset_mozilla_dir(){
 }
 
 list_action(){
-  if [ "$installed" -eq 1 ]; then
+  if [ $installed -eq 1 ]; then
     detect_applied_mozilla_dirs
   else
     detect_mozilla_dirs
@@ -209,6 +210,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 action=$1
+installed=0
 shift
 
 # Parse CLI args/actions
