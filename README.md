@@ -5,6 +5,17 @@ Extension to passthrough Pipewire audio to WebRTC Screenshare
 Based on [virtual-mic](https://github.com/Curve/rohrkabel/tree/master/examples/virtual-mic) and [Screenshare-with-audio-on-Discord-with-Linux](https://github.com/edisionnano/Screenshare-with-audio-on-Discord-with-Linux)
 
 This fork aims to provide flatpak support for Firefox, including a CLI tool for managing both Flatpak and system-package-manager-managed installations, it relies on the current rust implementation of the native part.
+
+Not modifying any .mozilla directories at install and only installing the necessary files, then letting users apply changes to the .mozilla directories themselves through the CLI tool (reversible through `screenaudioctl reset`) might make it easier to package the native part for different distros.
+This approach also makes it easier to handle special installations of firefox like flatpak.
+
+**This only serves as a proof of concept and for now is experimental only**
+
+## Future Works:
+- Config file for custom .mozilla directories (example for forks like librewolf or floorp)
+- rewrite of the CLI tool in rust
+*Support for snaps is not planned* 
+
 ## Communication
 
 You can find us on [Matrix](https://matrix.to/#/#pipewire-screenaudio:matrix.org)
@@ -51,12 +62,14 @@ You can find us on [Matrix](https://matrix.to/#/#pipewire-screenaudio:matrix.org
 
 - cargo
 - pipewire
+- jq
 
 ```bash
 git clone https://github.com/IceDBorn/pipewire-screenaudio.git
 cd pipewire-screenaudio
 bash install.sh
 ```
+Building from source installs everything locally in `$HOME/.local`
 
 ## Usage
 
