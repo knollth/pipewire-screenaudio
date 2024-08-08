@@ -67,24 +67,77 @@ bash install.sh
   - Join a WebRTC call, click the extension icon, select an audio node and share
   - Stream, your transmission should contain both audio and video
 
+
 - #### Via the CLI
 
-  - **Description:** It's used to manually call the commands that are normally called by the extension. It is meant for troubleshooting, but it could be used for integrating the connector with other apps.
+  - **Description:** this fork provides `screenaudioctl`, an interactive CLI tool written in used for managing the native part
   - **Usage:**
     ```bash
-    bash native/connector/cli.sh COMMAND ARGUMENTS
+    screenaudioctl --help
+    user@fedora:~$ screenaudioctl
+    Usage: script.sh [action] [options]
+    Actions:
+      apply                     Apply to mozilla folder
+      list                      List destination mozilla folders
+      reset                     Delete .mozilla folders, reset changes to firefox flatpak
+    Options:
+      -h, --help                Show help
+      --installed               for listing installed .mozilla folders
+      -v, --verbose             Enable verbose mode
     ```
-  - **Example:**
+  - **list .mozilla directories and apply to selected destination:**
+    ```
+    $ screenaudioctl list
+
+    Found the following .mozilla directories:
+
+    1. user:
+      /home/user/.mozilla
+    2. user-flatpak:
+     /home/user/.var/app/org.mozilla.firefox/.mozilla
+    ```
+  - listing all .mozilla directories that have been modified by `screenaudioctl`
     ```bash
-    bash native/connector/cli.sh GetNodes
+    
+    $ screenaudioctl list --installed
+
+    Found the following .mozilla directories:
+
+    1. user:
+      /home/user/.mozilla
+    2. user-flatpak:
+      /home/user/.var/app/org.mozilla.firefox/.mozilla
     ```
+  - setting up the native part for selected .mozilla folder
     ```bash
-    bash native/connector/cli.sh SetSharingNode '{ "micId": 100, "node": 200 }'
+    $ screenaudioctl apply
+
+    Found the following .mozilla directories:
+
+      1 . user:
+        /home/user/.mozilla
+      2. user-flatpak:
+        /home/user/.var/app/org.mozilla.firefox/.mozilla
+
+      Select where to apply changes to ([1-2] a=all, 0=abort): 2
     ```
-  - **Environment:**
+    **For Flatpak:** Running apply on flatpak installs gives the flatpak filesystem permissions for `xdg-run/pipewire-0`, this is required for the native part to work. `screenaudioctl` also copies the `connector-rs` binary into .mozilla/native-message/hosts in addition to firefox.json
+
+  - **list destinations where native part is set up and resetting selected .mozilla directories:**
     ```bash
-    DEBUG=1 # Set to enable verbose logging
+    $ screenaudioctl reset
+
+    Found the following .mozilla directories:
+
+    1. user:
+      /home/user/.mozilla
+    2. user-flatpak:
+       /home/user/.var/app/org.mozilla.firefox/.mozilla
+
+    Select where to apply changes to ([1-2] a=all, 0=abort): 
+
     ```
+    **For Flatpak:** For Firefox Flatpaks, this will reset the permissions to default as defined in the [**manifest**](https://hg.mozilla.org/mozilla-central/file/tip/taskcluster/docker/firefox-flatpak/runme.sh). 
 
 ## Known Problems
 
