@@ -89,7 +89,7 @@ Building from source installs everything locally in `$HOME/.local`
   - **Usage:**
     ```bash
     screenaudioctl --help
-    user@fedora:~$ screenaudioctl
+    $ screenaudioctl
     Usage: script.sh [action] [options]
     Actions:
       apply                     Apply to mozilla folder
